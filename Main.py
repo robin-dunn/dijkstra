@@ -44,24 +44,25 @@ def dijkstraSearch(network: Network, startNodeId: int, endNodeId: int):
 
     # Set the costs of all nodes to infinity except the start node which we give zero cost.
     costs[startNodeId] = 0
-    for nodeId in network.nodes:
+    for nodeId in network.nodeIds:
         if (nodeId != startNodeId):
             costs[nodeId] = math.inf
 
     # Begin by adding start node to the queue
-    pq.enqueue([startNodeId, 0])
+    pq.enqueue(startNodeId, 0)
 
+    # Use priority queue to traverse the nodes
     while (not pq.isEmpty()):
         shortestStep = pq.dequeue()
-        currentNodeId = shortestStep[0]
+        currentNodeId = shortestStep.nodeId
 
         for neighbor in network.adjacencies[currentNodeId]:
             cost = costs[currentNodeId] + neighbor.cost
 
-        if (cost < costs[neighbor.nodeId]):
-            costs[neighbor.nodeId] = cost
-            backtrace[neighbor.nodeId] = currentNodeId
-            pq.enqueue([neighbor.nodeId, cost])
+            if (cost < costs[neighbor.nodeId]):
+                costs[neighbor.nodeId] = cost
+                backtrace[neighbor.nodeId] = currentNodeId
+                pq.enqueue(neighbor.nodeId, cost)
 
     path = [endNodeId]
     lastStep = endNodeId
@@ -69,15 +70,17 @@ def dijkstraSearch(network: Network, startNodeId: int, endNodeId: int):
     while(lastStep != startNodeId):
         path.insert(0, backtrace[lastStep])
         lastStep = backtrace[lastStep]
-    
-    return f'Path is {path} and time is {costs[endNodeId]}'
+
+    totalCost = costs[endNodeId]
+
+    print(f'Path is {path} and time is {totalCost}'
+
+    return totalCost
 
 def run():
     network = Network()
 
     loadData('./graph.dat', network)
-
-    print('cn ' + str(len(network.nodeIds)))
 
     dijkstraSearch(network, 314185938, 1320557460)
 
