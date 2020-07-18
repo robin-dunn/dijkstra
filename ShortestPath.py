@@ -7,14 +7,12 @@ from Network import Network
 from PriorityQueue import PriorityQueue
 
 class ShortestPath:
+
     @staticmethod
     def dijkstraSearch(network: Network, startNodeId: int, endNodeId: int):
-        if startNodeId not in network.nodeIds:
-            print('Node ID: ' + str(startNodeId) + ' not found')
-
-        if endNodeId not in network.nodeIds:
-            print('Node ID: ' + str(endNodeId) + ' not found')
-
+        if (not network.nodesExist([startNodeId, endNodeId])):
+            return -1
+            
         costs = {}
         backtrace = {}
         pq = PriorityQueue()
@@ -50,6 +48,6 @@ class ShortestPath:
 
         totalCost = costs[endNodeId]
 
-        print(f'Path is {path} and time is {totalCost}')
+        # print(f'Path is {path} and total cost is {totalCost}')
 
         return totalCost

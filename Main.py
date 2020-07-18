@@ -5,4 +5,7 @@ from Network import Network
 from ShortestPath import ShortestPath
 
 network = Network.loadData('./graph.dat')
-ShortestPath.dijkstraSearch(network, int(sys.argv[1]), int(sys.argv[2]))
+
+shortestDistance = ShortestPath.dijkstraSearch(network, int(sys.argv[1]), int(sys.argv[2]))
+
+print(shortestDistance)

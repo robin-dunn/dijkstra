@@ -24,6 +24,15 @@ class Network:
         self.adjacencies[fromNodeId].append(NodeInfo(toNodeId, distance))
         self.adjacencies[toNodeId].append(NodeInfo(fromNodeId, distance))
 
+    def nodesExist(self, nodeIds: List):
+        foundNodes=0
+        for nodeId in nodeIds:
+            if nodeId in self.nodeIds:
+                foundNodes = foundNodes + 1
+            else:
+                print('Node ID: ' + str(nodeId) + ' not found')
+        return foundNodes == len(nodeIds)
+
     @staticmethod
     def loadData(filename: str):
 
