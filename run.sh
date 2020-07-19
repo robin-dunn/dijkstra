@@ -1,36 +1,24 @@
-# Example usage: ./run.sh 314185938 1320557460
+# Example usage: ./run.sh {startNodeId} {endNodeId}
+# E.g. ./run.sh 314185938 1320557460
 
 is_python_installed=
 python_command="python3"
+python_aliases=("python3" "python" "py3" "py")
 
-# Check if python is installed
-check_python=$(python3 -V 2>&1)
-if [[ $check_python == *"Python 3"* ]] ; then
-  is_python_installed=true
-  python_command="python3"
-fi
-
-check_python=$(python -V 2>&1)
-if [[ $check_python == *"Python 3"* ]] ; then
-  is_python_installed=true
-  python_command="python"
-fi
-
-check_python=$(py3 -V 2>&1)
-if [[ $check_python == *"Python 3"* ]] ; then
-  is_python_installed=true
-  python_command="py3"
-fi
-
-check_python=$(py -V 2>&1)
-if [[ $check_python == *"Python 3"* ]] ; then
-  is_python_installed=true
-  python_command="py"
-fi
+for a in "${python_aliases[@]}"
+do
+  # Try to run the python get version command to see which, 
+  # if any, is the correct python alias
+  check_python=$($a -V 2>&1)
+  if [[ $check_python == *"Python 3"* ]] ; then
+    is_python_installed=true
+    python_command="$a"
+  fi
+done
 
 if [ -z "$is_python_installed" ] ; then
-  echo "This script requires python v3, but it looks like it's not installed on this machine."
-  echo "Please download and install python v3 from https://www.python.org/downloads/ and try running the script again." 
+  echo "This script requires Python v3, but it looks like it's not installed on this machine."
+  echo "Please download and install Python v3 (https://www.python.org/downloads/) and try running the script again." 
   exit 1;
 fi
 

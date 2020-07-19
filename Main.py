@@ -1,5 +1,6 @@
 # Language: Python v3
-# Description: Script to read OSM network data and calculate walking routes
+# Description: Script to read OSM network data and calculate walking distance.
+
 import sys
 from Network import Network
 from ShortestPath import ShortestPath

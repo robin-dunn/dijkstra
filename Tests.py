@@ -1,6 +1,5 @@
-
 # Language: Python v3
-# Description: Tests to check the dijkstra algorithm returns the expected shortest distance
+# Description: Tests to check the dijkstra algorithm returns the expected shortest distance.
 
 from Network import Network
 from ShortestPath import ShortestPath

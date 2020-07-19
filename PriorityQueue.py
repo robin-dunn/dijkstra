@@ -1,3 +1,7 @@
+# Language: Python v3
+# Description: A priority queue data structure which stores the
+#              node having the least cost at the begining (index=0).
+
 from NodeInfo import NodeInfo
 
 class PriorityQueue:
@@ -22,6 +26,7 @@ class PriorityQueue:
                 self.collection.append(node)
 
     def dequeue(self):
+        # Return the node with the smallest cost
         return self.collection.pop(0)
 
     def isEmpty(self):

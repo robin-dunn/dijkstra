@@ -1,5 +1,5 @@
 # Language: Python v3
-# Description: class to hold the nodes and links of a routing network
+# Description: Class to hold the nodes and links of a routing network.
 
 from typing import List, Dict
 from NodeInfo import NodeInfo

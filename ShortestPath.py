@@ -1,7 +1,6 @@
-
 # Language: Python v3
-# Description: functions to calculate shotest path between nodes in a graph.
-from typing import List, Dict
+# Description: Calculate shortest path between nodes in a graph.
+
 import math
 from Network import Network
 from PriorityQueue import PriorityQueue
@@ -14,7 +13,6 @@ class ShortestPath:
             return -1
             
         costs = {}
-        backtrace = {}
         pq = PriorityQueue()
 
         # Set the costs of all nodes to infinity except the start node which we give zero cost.
@@ -23,31 +21,22 @@ class ShortestPath:
             if (nodeId != startNodeId):
                 costs[nodeId] = math.inf
 
-        # Begin by adding start node to the queue
+        # Begin by adding start node to the queue.
         pq.enqueue(startNodeId, 0)
 
-        # Use priority queue to traverse the nodes
+        # Use priority queue to traverse the nodes having least cost.
         while (not pq.isEmpty()):
             shortestStep = pq.dequeue()
             currentNodeId = shortestStep.nodeId
 
+            # Calculate the cost of travelling to each neighbor.
             for neighbor in network.adjacencies[currentNodeId]:
                 cost = costs[currentNodeId] + neighbor.cost
 
+                # If the cost of this path to the neighbor is less than another path
+                # we add the neighbor node ID to the queue as a candidate to be traversed.  
                 if (cost < costs[neighbor.nodeId]):
                     costs[neighbor.nodeId] = cost
-                    backtrace[neighbor.nodeId] = currentNodeId
                     pq.enqueue(neighbor.nodeId, cost)
 
-        path = [endNodeId]
-        lastStep = endNodeId
-
-        while(lastStep != startNodeId):
-            path.insert(0, backtrace[lastStep])
-            lastStep = backtrace[lastStep]
-
-        totalCost = costs[endNodeId]
-
-        # print(f'Path is {path} and total cost is {totalCost}')
-
-        return totalCost
+        return costs[endNodeId]
