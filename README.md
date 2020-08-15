@@ -1,4 +1,4 @@
-# Citymapper Router Challenge - Robin Dunn
+# Dijkstra shortest path
 
 ## Compile and run
 
